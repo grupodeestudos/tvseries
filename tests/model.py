@@ -67,5 +67,24 @@ class ModelTest(unittest.TestCase):
     connectionMock.execute.assert_called_with("insert into episodes (name, number) values (?, ?)", "Pilot", 4)
 
 
+  @mock.patch.object(tvseries.db, "get_connection") 
+  def test_model_list_all_com_filtro(self, get_conn_mock):
+    conn_mock = mock.Mock() 
+    get_conn_mock.return_value = conn_mock
+    s = Serie("dexter")
+    s.all()
+    conn_mock.execute.assert_called_with("select * from series where name = '?'", "dexter")
+    self.assertTrue(conn_mock.fetchall.called)
+
+  @mock.patch.object(tvseries.db, "get_connection")
+  def test_model_list_all_sem_filtro(self, get_conn_mock):
+    conn_mock = mock.Mock()
+    get_conn_mock.return_value = conn_mock
+    s = Serie()
+    s.all()
+    conn_mock.execute.assert_called_with("select * from series")
+    self.assertTrue(conn_mock.fetchall.called)
+
+
 
     

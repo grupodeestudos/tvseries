@@ -6,6 +6,8 @@ __all__ = ['Serie', 'Episode']
 
 
 class Entity(object):
+
+
   def save(self):
     table = self.__class__.__name__.lower() + "s"
     column_values = self.return_values()
@@ -21,6 +23,23 @@ class Entity(object):
     conn.execute(sql, *column_values)
     conn.commit()
     conn.close()
+
+
+  def all(self):
+    table = self.__class__.__name__.lower() + "s"
+    sql = "select * from %s" % table
+    params = []
+
+    if (self.name):
+      sql += " where name = '?'"
+      params += [self.name]
+
+    conn = tvseries.db.get_connection()
+    conn.execute(sql, *params)
+    
+    r = conn.fetchall()
+    conn.close()
+    return r
 
 
   def return_values(self):
