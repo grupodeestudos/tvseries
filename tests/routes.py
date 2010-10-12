@@ -1,13 +1,8 @@
 
 import unittest
-import mock
-import pyroutes.http.response
 
 import tvseries.routes
 from pyroutes.http.request import Request
-
-import tvseries.templates
-import tvseries.model
 
 from ludibrio import Mock
 

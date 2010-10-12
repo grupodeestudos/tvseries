@@ -4,9 +4,6 @@
 import unittest
 
 from tvseries.model import Serie, Episode
-import tvseries.db
-
-import mock
 from ludibrio import Mock
 
 class ModelTest(unittest.TestCase):
@@ -35,17 +32,17 @@ class ModelTest(unittest.TestCase):
    self.assertEquals("Pilot", ep.name)
    self.assertEquals(1, ep.number)
 
-  @mock.patch.object(tvseries.db, "get_connection")
-  def test_save_serie(self, get_conn_mock):
-    connectionMock = mock.Mock()
-    get_conn_mock.return_value = connectionMock
+  def test_save_serie(self):
+    with Mock() as get_connection:
+      from tvseries.db import get_connection
+      conn = get_connection()
+      conn.execute("insert into series (name) values (?)", "dexter")
+      conn.commit()
+      conn.close()
+
     s = Serie("dexter")
     s.save()
-
-    self.assertTrue(connectionMock.execute.called, "Não chamou o método execute()")
-    self.assertTrue(connectionMock.commit.called)
-    self.assertTrue(connectionMock.close.called)
-    connectionMock.execute.assert_called_with("insert into series (name) values (?)", "dexter")
+    get_connection.validate()
 
   def test_model_episode_return_values(self):
     e = Episode("Pilot", 3)
@@ -55,17 +52,17 @@ class ModelTest(unittest.TestCase):
     e = Episode("Ep04", 4)
     self.assertEquals(["name", "number"], e.columns())
 
-  @mock.patch.object(tvseries.db, "get_connection")
-  def test_save_episode(self, get_conn_mock):
-    connectionMock = mock.Mock()
-    get_conn_mock.return_value = connectionMock
+  def test_save_episode(self):
+    with Mock() as get_connection:
+      from tvseries.db import get_connection
+      c = get_connection()
+      c.execute('insert into episodes (name, number) values (?, ?)', 'Pilot', 4)
+      c.commit()
+      c.close()
+
     e = Episode("Pilot", 4)
     e.save()
-
-    self.assertTrue(connectionMock.execute.called, "Não chamou o método execute()")
-    self.assertTrue(connectionMock.commit.called)
-    self.assertTrue(connectionMock.close.called)
-    connectionMock.execute.assert_called_with("insert into episodes (name, number) values (?, ?)", "Pilot", 4)
+    get_connection.validate()
 
 
   def test_model_list_all_com_filtro(self):
