@@ -7,6 +7,7 @@ from tvseries.model import Serie, Episode
 import tvseries.db
 
 import mock
+from ludibrio import Mock
 
 class ModelTest(unittest.TestCase):
   
@@ -67,24 +68,29 @@ class ModelTest(unittest.TestCase):
     connectionMock.execute.assert_called_with("insert into episodes (name, number) values (?, ?)", "Pilot", 4)
 
 
-  @mock.patch.object(tvseries.db, "get_connection") 
-  def test_model_list_all_com_filtro(self, get_conn_mock):
-    conn_mock = mock.Mock() 
-    get_conn_mock.return_value = conn_mock
+  def test_model_list_all_com_filtro(self):
+    with Mock() as get_connection:
+      from tvseries.db import get_connection
+      conn = get_connection()
+      r = conn.execute("select * from series where name = '?'", "dexter")
+      r.fetchall()
+      conn.close()
+    
     s = Serie("dexter")
     s.all()
-    conn_mock.execute.assert_called_with("select * from series where name = '?'", "dexter")
-    self.assertTrue(conn_mock.fetchall.called)
+    get_connection.validate()
 
-  @mock.patch.object(tvseries.db, "get_connection")
-  def test_model_list_all_sem_filtro(self, get_conn_mock):
-    conn_mock = mock.Mock()
-    get_conn_mock.return_value = conn_mock
+  def test_model_list_all_sem_filtro(self):
+    with Mock() as get_connection:
+      from tvseries.db import get_connection
+      conn = get_connection()
+      r = conn.execute("select * from series")
+      r.fetchall()
+      conn.close()
+ 
     s = Serie()
     s.all()
-    conn_mock.execute.assert_called_with("select * from series")
-    self.assertTrue(conn_mock.fetchall.called)
-
+    get_connection.validate()
 
 
     

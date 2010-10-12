@@ -35,9 +35,9 @@ class Entity(object):
       params += [self.name]
 
     conn = tvseries.db.get_connection()
-    conn.execute(sql, *params)
+    r = conn.execute(sql, *params)
     
-    r = conn.fetchall()
+    r = r.fetchall()
     conn.close()
     return r
 
@@ -62,7 +62,7 @@ class Serie(Entity):
   
   def columns(self):
     return ["name"]
-  
+
 
 class Episode(Entity):
   name = None
