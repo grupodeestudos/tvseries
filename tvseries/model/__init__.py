@@ -1,8 +1,8 @@
 
 import tvseries.db
 
-
 __all__ = ['Serie', 'Episode']
+
 
 
 class Entity(object):
@@ -12,7 +12,7 @@ class Entity(object):
     table = self.__class__.__name__.lower() + "s"
     column_values = self.return_values()
     values = ['?' for v in column_values]
-
+    
     sql = "insert into %s (%s) values (%s)" %\
                                             (table,\
                                              ", ".join(self.columns()),\
@@ -20,7 +20,11 @@ class Entity(object):
     
     conn = tvseries.db.get_connection()
 
-    conn.execute(sql, *column_values)
+    param = ()
+    for c in column_values:
+      param += (c,)
+
+    conn.execute(sql, param)
     conn.commit()
     conn.close()
 

@@ -36,7 +36,7 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       conn = get_connection()
-      conn.execute("insert into series (name) values (?)", "dexter")
+      conn.execute("insert into series (name) values (?)", ("dexter",))
       conn.commit()
       conn.close()
 
@@ -56,7 +56,7 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       c = get_connection()
-      c.execute('insert into episodes (name, number) values (?, ?)', 'Pilot', 4)
+      c.execute('insert into episodes (name, number) values (?, ?)', ('Pilot', 4))
       c.commit()
       c.close()
 

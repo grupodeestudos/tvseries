@@ -29,3 +29,14 @@ class RoutesTest(unittest.TestCase):
     tvseries.routes.series(Request({}))
     Serie.validate()
     render_to_response.validate()
+
+
+#  def test_new_serie(self):
+#    with Mock() as Serie:
+#      from tvseries.model import Serie
+#      a = Serie("dexter")
+#      a.save()
+#
+#    tvseries.routes.new_serie(Request({'PATH_INFO': "/dexter"}))
+#    Serie.validate()
+
