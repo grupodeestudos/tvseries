@@ -11,20 +11,25 @@ class Entity(object):
   def save(self):
     table = self.__class__.__name__.lower() + "s"
     column_values = self.return_values()
-    values = ['?' for v in column_values]
-    
-    sql = "insert into %s (%s) values (%s)" %\
+   
+    columns = ["%s" for c in column_values]
+    tuple_column_names = ()
+    for c in self.columns():
+      tuple_column_names += (c,)
+
+    tuple_column_values = ()
+    for v in column_values:
+      tuple_column_values += (v,)
+
+
+    sql = "insert into %s (%s) values ('%s')" %\
                                             (table,\
-                                             ", ".join(self.columns()),\
-                                             ", ".join(values))
+                                             ", ".join(columns) % tuple_column_names,\
+                                             ", ".join(columns) % tuple_column_values)
     
     conn = tvseries.db.get_connection()
 
-    param = ()
-    for c in column_values:
-      param += (c,)
-
-    conn.cursor().execute(sql, param)
+    conn.cursor().execute(sql)
     conn.commit()
     conn.close()
 
@@ -63,10 +68,10 @@ class Serie(Entity):
     self.episodes = episodes
   
   def return_values(self):
-    return [self.name]
+    return (self.name,)
   
   def columns(self):
-    return ["name"]
+    return ("name",)
 
 
 class Episode(Entity):

@@ -21,11 +21,11 @@ class ModelTest(unittest.TestCase):
 
   def test_model_serie_return_values(self):
     s = Serie("house")
-    self.assertEquals(["house"], s.return_values())
+    self.assertEquals(("house",), s.return_values())
 
   def test_model_serie_column_names(self):
     s = Serie("dex")
-    self.assertEquals(["name"], s.columns())
+    self.assertEquals(("name",), s.columns())
 
   def test_model_episode(self):
    ep = Episode("Pilot", 1)
@@ -37,7 +37,7 @@ class ModelTest(unittest.TestCase):
       from tvseries.db import get_connection
       conn = get_connection()
       cursor= conn.cursor()
-      cursor.execute("insert into series (name) values (?)", ("dexter",))
+      cursor.execute("insert into series (name) values ('dexter')")
       cursor.commit()
       conn.close()
 
@@ -52,19 +52,6 @@ class ModelTest(unittest.TestCase):
   def test_model_episode_columns(self):
     e = Episode("Ep04", 4)
     self.assertEquals(["name", "number"], e.columns())
-
-  def test_save_episode(self):
-    with Mock() as get_connection:
-      from tvseries.db import get_connection
-      c = get_connection()
-      cursor = c.cursor().execute('insert into episodes (name, number) values (?, ?)', ('Pilot', 4))
-      cursor.commit()
-      c.close()
-
-    e = Episode("Pilot", 4)
-    e.save()
-    get_connection.validate()
-
 
   def test_model_list_all_com_filtro(self):
     with Mock() as get_connection:
