@@ -26,9 +26,9 @@ class RoutesTest(unittest.TestCase):
       crs = c.cursor()
       crs.execute("select name from series") 
       crs.fetchall() >> [("dexter",), ("house",)]
-      crs.execute("select name from episodes where serie = 'dexter'")
+      crs.execute("select name from episodes where serie = 'dexter' order by name")
       crs.fetchall() >> [("s05e01",), ("s05e02",)]
-      crs.execute("select name from episodes where serie = 'house'")
+      crs.execute("select name from episodes where serie = 'house' order by name")
       crs.fetchall() >> []
 
 

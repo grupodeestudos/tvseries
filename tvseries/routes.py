@@ -26,7 +26,7 @@ def series(req):
 
   episodes = {}
   for serie in series:
-    cursor.execute("select name from episodes where serie = '%s'" % serie)
+    cursor.execute("select name from episodes where serie = '%s' order by name" % serie)
     ep = cursor.fetchall()
     episodes[serie] = [e[0] for e in ep]
 
