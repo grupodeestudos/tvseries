@@ -1,8 +1,14 @@
 
+import os
 
-import sqlite3
+try:
+  import sqlite3 as sqlite
+except Exception, e:
+  import sqlite
 
-PATH = "/tmp/db.sqlite3"
+
+
+PATH = os.path.expanduser("~dalton/tvseries.db.sqlite3")
 
 def get_connection():
-  return sqlite3.connect(PATH)
+  return sqlite.connect(PATH)

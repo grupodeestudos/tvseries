@@ -36,8 +36,9 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       conn = get_connection()
-      conn.execute("insert into series (name) values (?)", ("dexter",))
-      conn.commit()
+      cursor= conn.cursor()
+      cursor.execute("insert into series (name) values (?)", ("dexter",))
+      cursor.commit()
       conn.close()
 
     s = Serie("dexter")
@@ -56,8 +57,8 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       c = get_connection()
-      c.execute('insert into episodes (name, number) values (?, ?)', ('Pilot', 4))
-      c.commit()
+      cursor = c.cursor().execute('insert into episodes (name, number) values (?, ?)', ('Pilot', 4))
+      cursor.commit()
       c.close()
 
     e = Episode("Pilot", 4)
@@ -69,8 +70,9 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       conn = get_connection()
-      r = conn.execute("select * from series where name = '?'", "dexter")
-      r.fetchall()
+      cursor = conn.cursor()
+      cursor.execute("select * from series where name = '?'", "dexter")
+      cursor.fetchall()
       conn.close()
     
     s = Serie("dexter")
@@ -81,8 +83,9 @@ class ModelTest(unittest.TestCase):
     with Mock() as get_connection:
       from tvseries.db import get_connection
       conn = get_connection()
-      r = conn.execute("select * from series")
-      r.fetchall()
+      cursor = conn.cursor()
+      cursor.execute("select * from series")
+      cursor.fetchall()
       conn.close()
  
     s = Serie()

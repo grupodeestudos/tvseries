@@ -12,7 +12,7 @@ class RoutesTest(unittest.TestCase):
   def test_index_route(self):
     with Mock() as Redirect:
       from pyroutes.http.response import Redirect
-      Redirect("/series")
+      Redirect("series")
 
     tvseries.routes.index(Request({}))
     Redirect.validate()

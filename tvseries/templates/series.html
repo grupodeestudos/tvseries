@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <body>
+    <ul py:if="data">
+      <li py:for="serie in data">
+      <a href="serie/edit/${serie[1]}"> ${serie[1]} </a> | <a href="serie/delete/${serie[1]}"> remover </a>
+      </li>
+    </ul>
+
+    <a href="serie/new"> Nova Série </a>
+
+  </body>
+
+
+
+</html>

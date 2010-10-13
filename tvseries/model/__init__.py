@@ -24,7 +24,7 @@ class Entity(object):
     for c in column_values:
       param += (c,)
 
-    conn.execute(sql, param)
+    conn.cursor().execute(sql, param)
     conn.commit()
     conn.close()
 
@@ -39,9 +39,10 @@ class Entity(object):
       params += [self.name]
 
     conn = tvseries.db.get_connection()
-    r = conn.execute(sql, *params)
+    cursor = conn.cursor()
+    cursor.execute(sql, *params)
     
-    r = r.fetchall()
+    r = cursor.fetchall()
     conn.close()
     return r
 

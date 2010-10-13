@@ -2,7 +2,16 @@
 
 __all__ = ['render_to_response']
 
+import os
+from genshi.template import TemplateLoader
 from pyroutes.http.response import Response
 
-def render_to_response(template_name, data):
-  return Response("%s" % data)
+loader = TemplateLoader(os.path.dirname(__file__), auto_reload=True)
+
+def render_to_response(template_name, data=None):
+  tmpl = loader.load(template_name)
+  content = tmpl.generate(data=data).render('html', doctype='html')
+  return Response(content)
+
+
+
