@@ -9,7 +9,6 @@ from tvseries.model import Serie
 from tvseries.templates import render_to_response
 from tvseries.db import get_connection
 
-
 @route("/")
 def index(req):
   return Redirect("/series")
@@ -49,10 +48,21 @@ def new_serie(req):
 @route("/serie/delete")
 def delete_serie(req, serie):
   c = get_connection()
-  c.cursor().execute("delete from series where name = ?", (serie,))
+  c.cursor().execute("delete from series where name = '%s'" % serie)
   c.commit()
   c.close()
   return Redirect("/series")
+
+@route("/episode/delete")
+def delete_episode(req, serie, episode):
+  if serie and episode:
+    c = get_connection();
+    cursor = c.cursor()
+    cursor.execute("delete from episodes where serie = '%s' and name = '%s'" % (serie, episode))
+    c.commit()
+    c.close()
+  return Redirect("/series")
+
 
 
 @route("/serie/edit")

@@ -2,17 +2,42 @@
   xmlns:py="http://genshi.edgewall.org/"
   xmlns:xi="http://www.w3.org/2001/XInclude">
 
+  <head>
+    <style>
+      html, body {
+        margin: 0;
+      }
+
+      body {
+        font: normal 16px Verdana;
+        color: black;
+      }
+      h2 {
+        /*font: normal 18px Georgia*/
+        margin: 0px;
+        color: white;
+        padding: 1em;
+        background: #00354C;
+      }
+
+      p { padding: 1em; }
+    </style>
+
+  </head>
+
+
   <body>
+    <h2> Séries de TV </h2>
     <ul py:if="data.series">
       <li py:for="serie in data.series">
       <a href="serie/edit/${serie}"> ${serie} </a> | <a href="serie/delete/${serie}"> remover </a>
         <ol py:if="serie in data.episodes">
-          <li py:for="episode in data.episodes[serie]"> ${episode} </li>
+          <li py:for="episode in data.episodes[serie]"> ${episode} | <a href="episode/delete/${serie}/${episode}"> delete </a> </li>
         </ol>
       </li>
     </ul>
 
-    <a href="serie/new"> Nova Série </a>
+    <p> <a href="serie/new"> Nova Série </a> </p>
 
   </body>
 
