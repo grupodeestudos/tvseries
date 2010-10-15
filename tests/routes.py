@@ -9,7 +9,7 @@ from ludibrio import Mock
 class RoutesTest(unittest.TestCase):
   
   def setUp(self):
-    tvseries.db.PATH = "/tmp/db.sqlite3"
+    pass
 
   def test_index_route(self):
     with Mock() as Redirect:
@@ -20,29 +20,18 @@ class RoutesTest(unittest.TestCase):
     Redirect.validate()
 
   def test_list_series(self):
-    with Mock() as get_connection:
-      from tvseries.db import get_connection
-      c = get_connection()
-      crs = c.cursor()
-      crs.execute("select name from series") 
-      crs.fetchall() >> [("dexter",), ("house",)]
-      crs.execute("select name from episodes where serie = 'dexter' order by name")
-      crs.fetchall() >> [("s05e01",), ("s05e02",)]
-      crs.execute("select name from episodes where serie = 'house' order by name")
-      crs.fetchall() >> []
+
+    with Mock() as Serie:
+      from tvseries.model import Serie
+      s = Serie().query.all() >> ["dexter", "house"]
 
 
     with Mock() as render_to_response:
       from tvseries.templates import render_to_response
-      render_to_response('series.html', data={'series': ['dexter', 'house'], 
-                                                 'episodes': {
-                                                     'house': [], 
-                                                     'dexter': ['s05e01', 's05e02']
-                                                    }
-                                             })
+      render_to_response('series.html', data=["dexter", "house"])
 
     tvseries.routes.series(Request({}))
-    get_connection.validate()
+    Serie.validate()
     render_to_response.validate()
 
 

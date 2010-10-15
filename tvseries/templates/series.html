@@ -28,11 +28,11 @@
 
   <body>
     <h2> Séries de TV </h2>
-    <ul py:if="data.series">
-      <li py:for="serie in data.series">
-      <a href="serie/edit/${serie}"> ${serie} </a> | <a href="serie/delete/${serie}"> remover </a>
-        <ol py:if="serie in data.episodes">
-          <li py:for="episode in data.episodes[serie]"> ${episode} | <a href="episode/delete/${serie}/${episode}"> delete </a> </li>
+    <ul py:if="data">
+      <li py:for="serie in data">
+      <a href="serie/edit/${serie.name}"> ${serie.name} </a> | <a href="serie/delete/${serie.name}"> remover </a>
+        <ol py:if="serie.episodes">
+          <li py:for="episode in serie.episodes"> ${episode.name} | <a href="episode/delete/${serie.name}/${episode.name}"> delete </a> </li>
         </ol>
       </li>
     </ul>

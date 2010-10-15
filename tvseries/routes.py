@@ -5,9 +5,10 @@
 from pyroutes import route
 from pyroutes.http.response import Redirect, Response
 
-from tvseries.model import Serie
+from tvseries.model import Serie, Episode
 from tvseries.templates import render_to_response
-from tvseries.db import get_connection
+from elixir import *
+
 
 @route("/")
 def index(req):
@@ -16,21 +17,7 @@ def index(req):
 
 @route("/series")
 def series(req):
-  conn = get_connection()
-  cursor = conn.cursor()
-  cursor.execute("select name from series")
-  series = []
-  for row in cursor.fetchall():
-    series.append(row[0])
-
-  episodes = {}
-  for serie in series:
-    cursor.execute("select name from episodes where serie = '%s' order by name" % serie)
-    ep = cursor.fetchall()
-    episodes[serie] = [e[0] for e in ep]
-
-
-  return render_to_response('series.html', data={'series': series, 'episodes': episodes})
+  return render_to_response('series.html', data=Serie.query.order_by(Serie.name).all())
   
 
 @route("/serie/new")
@@ -38,8 +25,8 @@ def new_serie(req):
   if req.POST:
     serie = req.POST.get('serie', None)
     if serie:
-      s = Serie(str(serie))
-      s.save()
+      s = Serie(name=serie)
+      session.commit()
     return Redirect("/series")
   
   return render_to_response('serie_new.html')
@@ -47,21 +34,21 @@ def new_serie(req):
 
 @route("/serie/delete")
 def delete_serie(req, serie):
-  c = get_connection()
-  c.cursor().execute("delete from series where name = '%s'" % serie)
-  c.commit()
-  c.close()
+  s = Serie.get_by(name=serie)
+  if s:
+    s.delete()
+    session.commit()
   return Redirect("/series")
 
 @route("/episode/delete")
 def delete_episode(req, serie, episode):
   if serie and episode:
-    c = get_connection();
-    cursor = c.cursor()
-    cursor.execute("delete from episodes where serie = '%s' and name = '%s'" % (serie, episode))
-    c.commit()
-    c.close()
+    s = Serie.get_by(name=serie)
+    e = Episode.get_by(serie=s)
+    s.episodes.remove(e)
+    session.commit()
   return Redirect("/series")
+
 
 
 
@@ -70,10 +57,10 @@ def edit_serie(req, serie):
   if req.POST:
     episode = req.POST.get('episode', None)
     if episode and serie:
-      conn = get_connection()
-      cursor = conn.cursor()
-      cursor.execute("insert into episodes (name, serie) values (%s, %s)", (episode, serie))
-      conn.commit()
+      s = Serie.get_by(name=serie)
+      e = Episode(name=episode)
+      s.episodes.append(e)
+      session.commit()
     return Redirect("/series")
   return render_to_response('episode_new.html')
 
