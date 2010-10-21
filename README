@@ -1,0 +1,17 @@
+== TV Series ==
+
+A Very simple webb application to control wich TV series episodes you already have!
+
+== Dependencies ==
+  
+ * pyroutes (http://www.pyroutes.com)
+ * Elixir
+ * SqlAlchemy
+
+
+== How to use ==
+
+ Just clone the repo and run:
+   python handler.py
+
+ The database will be at tvseries/model/tvseries.sqlite
