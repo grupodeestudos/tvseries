@@ -9,6 +9,6 @@ setup(
   license="GPLv2",
   description="Controlar as séries que eu vejo",
   author="Dalton Barreto",
-  packages=['tvseries', 'tvseries.model', 'tvseries.db', 'tvseries.templates'],
+  packages=['tvseries', 'tvseries.model', 'tvseries.templates'],
   package_data = {'tvseries': ['templates/*.html']}
     )
