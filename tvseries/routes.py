@@ -17,7 +17,7 @@ def index(req):
 
 @route("/series")
 def series(req):
-  return render_to_response('series.html', data=Serie.query.order_by(Serie.name).all())
+  return render_to_response('series.html', data={'series': Serie.query.order_by(Serie.name).all()})
   
 
 @route("/serie/new")

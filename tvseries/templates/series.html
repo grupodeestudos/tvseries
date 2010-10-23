@@ -49,9 +49,21 @@
         color: white; 
       }
 
+      div#footer a:visited {
+        color: white;
+      }
+
       a:visited {
         text-decoration: none;
-        color: white;
+      }
+
+      table#series {
+        margin 2px;
+        padding: 4px;
+      }
+
+      table#series tr, td {
+        padding-right: 5px;
       }
 
     </style>
@@ -62,12 +74,16 @@
   <body>
     <h2> Séries de TV </h2>
     <ul py:if="data">
-      <li py:for="serie in data">
-      <a href="serie/edit/${serie.name}"> ${serie.name} </a> | <a href="serie/delete/${serie.name}"> remover </a>
-        <ol py:if="serie.episodes">
-          <li py:for="episode in serie.episodes"> ${episode.name} | <a href="episode/delete/${serie.name}/${episode.name}"> delete </a> </li>
-        </ol>
-      </li>
+      <table id="series">        
+      <tr py:for="group in data.group(data.series, 4)">
+        <td py:for="serie in group" py:if="serie">
+          <p> <a href="serie/edit/${serie.name}"> ${serie.name} </a> | <a href="serie/delete/${serie.name}"> remover </a> </p>
+          <ol py:if="serie.episodes">
+            <li py:for="episode in serie.episodes"> ${episode.name} | <a href="episode/delete/${serie.name}/${episode.name}"> delete </a> </li>
+          </ol>
+        </td>
+      </tr>
+      </table>
     </ul>
 
     <p> <a href="serie/new"> Nova Série </a> </p>
