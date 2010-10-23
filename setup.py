@@ -5,7 +5,7 @@ from distutils.core import setup
 setup(
   name="tvseries",
   version="0.1",
-  url="http://github.com/daltonmatos/tseries",
+  url="http://github.com/daltonmatos/tvseries",
   license="GPLv2",
   description="Controlar as séries que eu vejo",
   author="Dalton Barreto",
