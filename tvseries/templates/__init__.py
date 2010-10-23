@@ -8,7 +8,7 @@ from pyroutes.http.response import Response
 
 loader = TemplateLoader(os.path.dirname(__file__), auto_reload=True)
 
-def render_to_response(template_name, data=None):
+def render_to_response(template_name, data={}):
   tmpl = loader.load(template_name)
   data.update({'group': group})
   content = tmpl.generate(data=data).render('html', doctype='html')
