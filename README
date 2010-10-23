@@ -21,6 +21,10 @@ A Very simple webb application to control wich TV series episodes you already ha
 == How to contriute ==
  Just fork the repo and start hacking! Bonus point if you design a very cool layout, because there is none today! Extra bonus point for topic branches! =) After that jus send me a pull request.
 
+ To run the tests you will need:
+  * nose
+  * ludibrio (github.com/nsigustavo/ludibrio)
+
 
 --
 Dalton Barreto
