@@ -5,8 +5,9 @@ A Very simple webb application to control wich TV series episodes you already ha
 == Dependencies ==
   
  * pyroutes (http://www.pyroutes.com)
- * Elixir
- * SqlAlchemy
+ * Elixir (http://elixir.ematia.de/trac/wiki)
+ * SqlAlchemy (http://www.sqlalchemy.org/)
+ * Genshi (http://genshi.edgewall.org)
 
 
 == How to use ==
@@ -15,3 +16,11 @@ A Very simple webb application to control wich TV series episodes you already ha
    python handler.py
 
  The database will be at tvseries/model/tvseries.sqlite
+
+
+== How to contriute ==
+ Just fork the repo and start hacking! Bonus point if you design a very cool layout, because there is none today! Extra bonus point for topic branches! =) After that jus send me a pull request.
+
+
+--
+Dalton Barreto
