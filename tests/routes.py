@@ -23,12 +23,12 @@ class RoutesTest(unittest.TestCase):
 
     with Mock() as Serie:
       from tvseries.model import Serie
-      s = Serie().query.all() >> ["dexter", "house"]
+      s = Serie.query.order_by(Serie.name).all() >> ["dexter", "house"]
 
 
     with Mock() as render_to_response:
       from tvseries.templates import render_to_response
-      render_to_response('series.html', data=["dexter", "house"])
+      render_to_response('series.html', data={'series':["dexter", "house"]})
 
     tvseries.routes.series(Request({}))
     Serie.validate()
