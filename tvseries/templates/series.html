@@ -14,13 +14,46 @@
       }
       h2 {
         /*font: normal 18px Georgia*/
-        margin: 0px;
+        margin: 0;
         color: white;
         padding: 1em;
         background: #00354C;
       }
 
-      p { padding: 1em; }
+      p { 
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+
+      div#footer {
+        margin: 0;
+      }
+
+      div#footer p {
+        float: right;
+        background: #00354C;
+        color: white;
+        font: normal 12px Georgia;
+      }
+
+      div#footer > div {
+        float: right;
+        margin: 0;
+        background: #00354C;
+        color: white;
+        width: 100%;
+      }
+
+      div#footer a:link { 
+        text-decoration: none; 
+        color: white; 
+      }
+
+      a:visited {
+        text-decoration: none;
+        color: white;
+      }
+
     </style>
 
   </head>
@@ -39,8 +72,10 @@
 
     <p> <a href="serie/new"> Nova Série </a> </p>
 
+    <div id="footer">
+      <div>
+        <p>Powered by: <a href="http://pyroutes.com" target="_new">pyroutes</a> | <a href="http://genshi.edgewall.org" target="_new">Genshi</a></p>
+      </div>
+    </div>
   </body>
-
-
-
 </html>
