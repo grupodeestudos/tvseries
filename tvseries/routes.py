@@ -7,12 +7,13 @@ from pyroutes.http.response import Redirect, Response
 
 from tvseries.model import Serie, Episode
 from tvseries.templates import render_to_response
+from tvseries import full_path_redirect
 from elixir import *
 
 
 @route("/")
 def index(req):
-  return Redirect("/series")
+  return Redirect(full_path_redirect(req.ENV, "/series"))
 
 
 @route("/series")
@@ -27,7 +28,7 @@ def new_serie(req):
     if serie:
       s = Serie(name=serie)
       session.commit()
-    return Redirect("/series")
+    return Redirect(full_path_redirect(req.ENV, "/series"))
   
   return render_to_response('serie_new.html')
 
@@ -38,7 +39,7 @@ def delete_serie(req, serie):
   if s:
     s.delete()
     session.commit()
-  return Redirect("/series")
+  return Redirect(full_path_redirect(req.ENV, "/series"))
 
 @route("/episode/delete")
 def delete_episode(req, serie, episode):
@@ -47,7 +48,7 @@ def delete_episode(req, serie, episode):
     e = Episode.get_by(serie=s)
     s.episodes.remove(e)
     session.commit()
-  return Redirect("/series")
+  return Redirect(full_path_redirect(req.ENV, "/series"))
 
 
 
@@ -61,7 +62,7 @@ def edit_serie(req, serie):
       e = Episode(name=episode)
       s.episodes.append(e)
       session.commit()
-    return Redirect("/series")
+    return Redirect(full_path_redirect(req.ENV, "/series"))
   return render_to_response('episode_new.html')
 
 
