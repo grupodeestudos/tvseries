@@ -45,7 +45,7 @@ def delete_serie(req, serie):
 def delete_episode(req, serie, episode):
   if serie and episode:
     s = Serie.get_by(name=serie)
-    e = Episode.get_by(serie=s)
+    e = Episode.get_by(serie=s, name=episode)
     s.episodes.remove(e)
     session.commit()
   return Redirect(full_path_redirect(req.ENV, "/series"))
