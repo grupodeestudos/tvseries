@@ -1,7 +1,7 @@
 
 
 
-
+import os
 from pyroutes import route
 from pyroutes.http.response import Redirect, Response
 
@@ -9,6 +9,17 @@ from tvseries.model import Serie, Episode
 from tvseries.templates import render_to_response
 from tvseries import full_path_redirect
 from elixir import *
+
+
+def _serve_file(path, content_type):
+    location = os.path.join(os.path.dirname(__file__), path)
+    content = file(location).read()
+    return Response(content=content, headers=[('Content-type', content_type)])
+
+@route("/static/css")
+def static(req, file_name):
+  if file_name:
+    return _serve_file(req.ENV['PATH_INFO'].strip('/'), 'text/css')
 
 
 @route("/")

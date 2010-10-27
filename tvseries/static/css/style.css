@@ -1,0 +1,63 @@
+html, body {
+  margin: 0;
+}
+
+body {
+  font: normal 16px Verdana;
+  color: black;
+}
+
+h2 {
+  /*font: normal 18px Georgia*/
+  margin: 0;
+  color: white;
+  padding: 1em;
+  background: #00354C;
+}
+
+p { 
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+div#footer {
+  margin: 0;
+}
+
+div#footer p {
+  float: right;
+  background: #00354C;
+  color: white;
+  font: normal 12px Georgia;
+}
+
+div#footer > div {
+    float: right;
+    margin: 0;
+    background: #00354C;
+    color: white;
+    width: 100%;
+  }
+
+  div#footer a:link { 
+    text-decoration: none; 
+    color: white; 
+  }
+
+  div#footer a:visited {
+    color: white;
+  }
+
+  a:visited {
+    text-decoration: none;
+  }
+
+  table#series {
+        margin 2px;
+        padding: 4px;
+      }
+
+      table#series tr, td {
+        padding-right: 5px;
+      }
+
