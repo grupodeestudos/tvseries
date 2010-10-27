@@ -10,5 +10,5 @@ setup(
   description="Controlar as séries que eu vejo",
   author="Dalton Barreto",
   packages=['tvseries', 'tvseries.model', 'tvseries.templates'],
-  package_data = {'tvseries': ['templates/*.html', 'static/*.css']}
+  package_data = {'tvseries': ['templates/*.html', 'static/css/*.css']}
     )
