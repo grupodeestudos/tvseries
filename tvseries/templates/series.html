@@ -9,20 +9,25 @@
 
   <body>
     <h2> Séries de TV </h2>
-    <ul py:if="data">
-      <table id="series">        
-      <tr py:for="group in data.group(data.series, 4)">
-        <td py:for="serie in group" py:if="serie">
-          <p> <a href="serie/edit/${serie.name}"> ${serie.name} </a> | <a href="serie/delete/${serie.name}"> remover </a> </p>
-          <ol py:if="serie.episodes">
-            <li py:for="episode in serie.episodes"> ${episode.name} | <a href="episode/delete/${serie.name}/${episode.name}"> delete </a> </li>
-          </ol>
-        </td>
-      </tr>
-      </table>
-    </ul>
 
-    <p> <a href="serie/new"> Nova Série </a> </p>
+    <div id="wrapper">
+    <py:if test="data">
+      <py:for each="group in data.group(data.series, 4)">
+        <div py:for="serie in group" py:if="serie" class="one_serie">
+            <a href="serie/edit/${serie.name}"> ${serie.name} </a> | <a href="serie/delete/${serie.name}"> remover </a>
+            <div py:if="serie.episodes" class="episodes">
+              <table>
+                <tr py:for="episode in serie.episodes"> <td> ${episode.name} | <a href="episode/delete/${serie.name}/${episode.name}"> delete </a> </td></tr>
+              </table>
+            </div>
+        </div>
+      </py:for>
+    </py:if>
+    </div>
+
+    <div>
+      <p> <a href="${SITE_ROOT}/serie/new"> Nova Série </a> </p>
+    </div>
 
     <div id="footer">
       <div>
