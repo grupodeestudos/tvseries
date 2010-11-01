@@ -7,8 +7,20 @@
    <head/>
 
    <body>
-     <h2> Editando série: ${serie}  </h2>
-    <div id="wrapper">
+     <h2> Editando série: ${serie.name}  </h2>
+     <div id="wrapper">
+
+
+       <table class="serie" cellspacing="0" py:if="serie.episodes">
+         <tr>
+           <th> Ep. </th>
+           <th> Ação </th>
+         </tr>
+         <tr py:for="i, ep in enumerate(serie.episodes)" class="${i%2 and 'par' or 'impar'}">
+           <td> ${ep.name} </td>
+           <td> <a href="${SITE_ROOT}/episode/delete/${serie.name}/${ep.name}"> remover </a> </td>
+         </tr>
+       </table>
     <form action="" method="POST">
       Novo episódio: <input type="text" name="episode"/>
       <input type="submit" value="Salvar"/>
