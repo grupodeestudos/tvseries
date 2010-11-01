@@ -8,7 +8,7 @@ __all__ = ['Serie', 'Episode']
 
 class Serie(Entity):
   name = Field(String(48), required=True)
-  episodes = OneToMany('tvseries.model.Episode')
+  episodes = OneToMany('tvseries.model.Episode', order_by="name")
   using_options(shortnames=True)
   
 
