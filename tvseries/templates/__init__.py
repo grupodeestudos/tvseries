@@ -11,8 +11,10 @@ loader = TemplateLoader(os.path.dirname(__file__), auto_reload=True)
 
 def render_to_response(template_name, data={}):
   tmpl = loader.load(template_name)
-  data.update({'group': group})
-  content = tmpl.generate(data=data, SITE_ROOT=settings.SITE_ROOT).render('html', doctype='html')
+  data.update({'group': group,
+               'SITE_ROOT': settings.SITE_ROOT})
+
+  content = tmpl.generate(**data).render('html', doctype='html')
   return Response(content)
 
 

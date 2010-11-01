@@ -18,7 +18,7 @@
               <th> Último Ep. </th>
               <th> Total Ep. </th>
             </tr>
-            <tr py:for="i, serie in enumerate(data.series)" class="${i%2 and 'par' or 'impar'}">
+            <tr py:for="i, serie in enumerate(series)" class="${i%2 and 'par' or 'impar'}">
               <td> <a href="series/edit/${serie.name}"> ${serie.name} </a></td>
               <td> <span py:if="len(serie.episodes) > 0"> ${serie.episodes[len(serie.episodes) - 1].name} </span></td>
               <td> ${len(serie.episodes)}</td>
