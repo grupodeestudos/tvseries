@@ -32,7 +32,7 @@ def series(req):
   return render_to_response('series.html', data={'series': Serie.query.order_by(Serie.name).all()})
   
 
-@route("/serie/new")
+@route("/series/new")
 def new_serie(req):
   if req.POST:
     serie = req.POST.get('serie', None)
@@ -44,7 +44,7 @@ def new_serie(req):
   return render_to_response('serie_new.html')
 
 
-@route("/serie/delete")
+@route("/series/delete")
 def delete_serie(req, serie):
   s = Serie.get_by(name=serie)
   if s:
@@ -64,7 +64,7 @@ def delete_episode(req, serie, episode):
 
 
 
-@route("/serie/edit")
+@route("/series/edit")
 def edit_serie(req, serie):
   if req.POST:
     episode = req.POST.get('episode', None)
