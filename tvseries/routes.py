@@ -74,6 +74,6 @@ def edit_serie(req, serie):
       s.episodes.append(e)
       session.commit()
     return Redirect(full_path_redirect(req.ENV, "/series"))
-  return render_to_response('episode_new.html')
+  return render_to_response('episode_new.html', {'serie': serie})
 
 

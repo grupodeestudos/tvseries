@@ -1,11 +1,21 @@
-<form action="" method="POST" xmlns="http://www.w3.org/1999/xhtml" 
+<html action="" method="POST" xmlns="http://www.w3.org/1999/xhtml" 
   xmlns:py="http://genshi.edgewall.org/"
   xmlns:xi="http://www.w3.org/2001/XInclude">
+  
+  <xi:include href="layout.html"/>
+
+   <head/>
+
+   <body>
+     <h2> Editando série: ${data.serie}  </h2>
+    <div id="wrapper">
+    <form action="" method="POST">
+      Novo episódio: <input type="text" name="episode"/>
+      <input type="submit" value="Salvar"/>
+    </form>
+    <a href="${SITE_ROOT}/"> voltar </a>
+  </div>
+   </body>
 
 
-    Novo episódio: <input type="text" name="episode"/>
-    <input type="submit" value="Salvar"/>
-
-
-
-</form>
+</html>
