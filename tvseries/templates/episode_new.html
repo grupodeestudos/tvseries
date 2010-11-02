@@ -25,6 +25,9 @@
       Novo episódio: <input type="text" name="episode"/>
       <input type="submit" value="Salvar"/>
     </form>
+    <form action="${SITE_ROOT}/episode/next/${serie.name}" method="POST">
+      <input type="submit" value="Adicionar Próximo Episódio" name="submit"/>
+    </form>
     <a href="${SITE_ROOT}/"> voltar </a>
   </div>
    </body>

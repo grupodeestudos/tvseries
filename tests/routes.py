@@ -37,4 +37,4 @@ class RoutesTest(unittest.TestCase):
     tvseries.routes.series(Request({}))
     Serie.validate()
     render_to_response.validate()
-
+  

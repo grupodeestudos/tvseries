@@ -61,6 +61,18 @@ def delete_episode(req, serie, episode):
     session.commit()
   return Redirect(full_path_redirect(req.ENV, "/series/edit/%s" % serie))
 
+@route("/episode/next")
+def next_episode(req, serie):
+  if serie and req.POST:
+    s = Serie.get_by(name=serie)
+    last_ep = s.last_episode()
+    if last_ep:
+      next = last_ep.next()
+      if next:
+        s.episodes.append(next)
+        session.commit()
+    return render_to_response('episode_new.html', {'serie': s})
+  return Redirect(full_path_redirect(req.ENV, '/'))
 
 
 
