@@ -5,7 +5,8 @@
 
   <py:match path="head" once="true">
     <head py:attrs="select('@*')">
-      <link rel="stylesheet" type="text/css" href="${SITE_ROOT}/static/css/style.css"/>
+      <base href="${SITE_ROOT}/"/>
+      <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
       <title> TV Series </title>
       ${select('*')}
     </head>
